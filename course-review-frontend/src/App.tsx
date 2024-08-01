@@ -1,31 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
+const App = () => {
+  const [message, setMessage] = useState('my message')
 
-type AppState = {
-  message: string;
+  useEffect(()=>{
+    fetch('http://localhost:3000/courses/')
+      .then(res => res.json())
+      .then(obj => {
+        setMessage(obj.message)
+      })
+  }, [])
+
+  return (
+    <div>
+      {message}
+    </div>
+  )
 }
 
-class App extends React.Component<{},AppState>{
-  state: AppState = {
-    message : "oioi",
-  };
+// type AppState = {
+//   message: string;
+// }
 
-  async componentDidMount() {
-      await fetch('http://localhost:3000/courses/')
-        .then(res => res.json())
-        .then(obj => {
-          this.setState({message: obj.message})
-        })
-  }
+// class App extends React.Component<{},AppState>{
+//   state: AppState = {
+//     message : "oioi",
+//   };
 
-  render() {
-    return (
-      <div>
-        {this.state.message}
-      </div>
-    )
-  }
-}
+//   async componentDidMount() {
+//       await fetch('http://localhost:3000/courses/')
+//         .then(res => res.json())
+//         .then(obj => {
+//           this.setState({message: obj.message})
+//         })
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         {this.state.message}
+//       </div>
+//     )
+//   }
+// }
 
 
 // function App() {
