@@ -4,6 +4,7 @@
 - npx nest new [name's project]
 
 - npm run start:dev
+- app.enableCors()
 
 [Frontend]
 - npx create-react-app course-review-fro
