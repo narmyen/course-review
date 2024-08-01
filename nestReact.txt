@@ -1,0 +1,14 @@
+[Backend]
+
+- npm install @nestjs/cli
+- npx nest new [name's project]
+
+- npm run start:dev
+
+[Frontend]
+- npx create-react-app course-review-fro
+ntend --template typescript
+- npm start
+- "start": "set PORT=2000 && react-scripts start",
+
+
