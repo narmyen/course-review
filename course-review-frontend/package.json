@@ -28,6 +28,11 @@
       "react-app/jest"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
