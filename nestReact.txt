@@ -7,9 +7,9 @@
 - app.enableCors()
 
 [Frontend]
-- npx create-react-app course-review-fro
-ntend --template typescript
+- rm -rf node_modules package-lock.json
+- npm install
+
+- npx create-react-app course-review-frontend --template typescript
 - npm start
 - "start": "set PORT=2000 && react-scripts start",
-
-
