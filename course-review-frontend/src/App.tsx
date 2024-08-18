@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div>
       {message}
-      cz
+      final test
     </div>
   )
 }
