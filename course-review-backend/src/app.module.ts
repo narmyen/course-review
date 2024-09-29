@@ -1,13 +1,23 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CoursesController } from './courses.controller';
-import { CoursesService } from './courses.service';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import Course from './courses/course.entity';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController, CoursesController],
-  providers: [AppService, CoursesService],
-  // provide หมายถึงเอาตัวมันไป inject ให้ตนอื่นได้
+  imports: [
+    TypeOrmModule.forRoot({
+      type: "mongodb",
+      host: "localhost",
+      port: 27017,
+      database: 'test',
+      entities: [Course],
+      synchronize: true,
+    }),
+    CoursesModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

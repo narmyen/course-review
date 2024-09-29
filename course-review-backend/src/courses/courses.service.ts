@@ -1,9 +1,18 @@
-import { Course } from "./interfaces/course.interface";
+import  Course  from "./course.entity";
 import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class CoursesService {
+  constructor(
+    @InjectRepository(Course) 
+    private coursesRepository: Repository<Course>,
+  ) {}
+
   async findAll(): Promise<Course[]> {
+    return this.coursesRepository.find();
+    /*
     return [
       {
         id : '100',
@@ -21,5 +30,6 @@ export class CoursesService {
         title : "Design"
       },
     ];
+    */
   }
 }
