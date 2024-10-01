@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {TypeOrmModule} from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import Course from './courses/course.entity';
 import { CoursesModule } from './courses/courses.module';
+import Review from './courses/review.entity';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { CoursesModule } from './courses/courses.module';
       host: "localhost",
       port: 27017,
       database: 'test',
-      entities: [Course],
+      entities: [Course, Review],
       synchronize: true,
     }),
     CoursesModule,
@@ -20,4 +21,4 @@ import { CoursesModule } from './courses/courses.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
