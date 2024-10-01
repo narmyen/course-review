@@ -15,7 +15,7 @@ export async function createCourse(newCourse: Course): Promise<Course | null> {
     },
     body: JSON.stringify(newCourse),
   })
-  const savedNewCourse = await res.json();
+  const savedNewCourse: Course = await res.json();
   if (savedNewCourse.id !== undefined) {
     return savedNewCourse;
   } else {
@@ -29,9 +29,26 @@ export async function fetchReviews(courseID: string): Promise<Review[]> {
   return reviews;
 }
 
+export async function createReview(newReview: Review, courseID: string): Promise<Review | null> {
+  const res = await fetch(`${baseUrl}/courses/${courseID}/reviews`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newReview),
+  })
+  const savedNewReview: Review = await res.json();
+  if (savedNewReview.id !== undefined) {
+    return savedNewReview;
+  } else {
+    return null;
+  }
+}
+
 
 export default {
   fetchCourses,
   createCourse,
   fetchReviews,
+  createReview,
 }

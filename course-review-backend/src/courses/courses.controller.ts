@@ -2,8 +2,10 @@ import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@
 import Course from './course.entity';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import Review from './review.entity';
+import { CreateReviewDto } from './dto/create-review.dto';
+import { ObjectId } from 'mongodb';
+import { ParseObjectIdPipe } from 'src/common/pipes';
 
 @Controller('courses')
 export class CoursesController {
@@ -17,17 +19,20 @@ export class CoursesController {
 
   @Post()
   async create(@Body() createCourseDto: CreateCourseDto) {
-    if (createCourseDto.number !== undefined && createCourseDto.title !== undefined) {
-      const newCourse = this.coursesService.create(createCourseDto);
-      return newCourse;
-    } else {
-      throw new HttpException('Bad request:', HttpStatus.BAD_REQUEST);
-    }
+    const newCourse = this.coursesService.create(createCourseDto);
+    return newCourse;
   }
 
   @Get(':courseID/reviews')
-  async finAllReviews(@Param('courseID') courseID: string): Promise<Review[]> {
+  async finAllReviews(@Param('courseID', ParseObjectIdPipe) courseID: ObjectId): Promise<Review[]> {
     return this.coursesService.finAllReviews(courseID);
+  }
+
+  @Post(':courseID/reviews')
+  async createReview(@Param('courseID', ParseObjectIdPipe) courseID: ObjectId,
+    @Body() createReviewDto: CreateReviewDto) {
+    createReviewDto.courseID = courseID;
+    return this.coursesService.createReview(createReviewDto);
   }
 
 }
