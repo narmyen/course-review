@@ -1,4 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from 'react-router-dom';
+
 import LoginForm from './components/LoginForm';
 import About from './components/About';
 import CourseReview from './components/CourseReview';
@@ -6,12 +13,29 @@ import CourseReview from './components/CourseReview';
 const App = () => {
 
   return (
-    <div className='container p-4 mt-40 shadow-md mx-auto'>
-      <CourseReview />
-      <LoginForm />
-      <About />
-    </div>
-  )
+    <Router>
+      <div className='container mx-auto  flex item-center justify-end mt-10'>
+        <ul className='flex gap-4'>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to='/about'>About</Link>
+          </li>
+          <li>
+            <Link to='/login'>Login</Link>
+          </li>
+        </ul>
+      </div>
+      <div className='container p-4 mt-40 shadow-md mx-auto'>
+        <Routes>
+          <Route path='/' element={<CourseReview />} />
+          <Route path='/login' element={<LoginForm />} />
+          <Route path='/about' element={<About />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
