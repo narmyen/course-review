@@ -9,6 +9,7 @@ import {
 import LoginForm from './components/LoginForm';
 import About from './components/About';
 import CourseReview from './components/CourseReview';
+import Oioi from './components/Oioi'
 
 const App = () => {
 
@@ -25,6 +26,9 @@ const App = () => {
           <li>
             <Link to='/login'>Login</Link>
           </li>
+          <li>
+            <Link to='/oioi'>oioi</Link>
+          </li>
         </ul>
       </div>
       <div className='container p-4 mt-40 shadow-md mx-auto'>
@@ -32,6 +36,7 @@ const App = () => {
           <Route path='/' element={<CourseReview />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/about' element={<About />} />
+          <Route path='/oioi' element={<Oioi />} />
         </Routes>
       </div>
     </Router>
