@@ -22,6 +22,33 @@ async function loginUser(username: string, password: string): Promise<any | null
   }
 }
 
+function isUserLoggedIn(): boolean {
+  return localStorage.accessToken !== undefined;
+}
+
+function getUserName(): string | null {
+  if (isUserLoggedIn()) {
+    return localStorage.username
+  } else {
+    return null
+  }
+}
+
+function logoutUser(): void {
+  if (isUserLoggedIn()) {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("username");
+  }
+}
+
+function getAccessToken(): string {
+  return localStorage.accessToken;
+}
+
 export default {
   loginUser,
+  isUserLoggedIn,
+  getUserName,
+  logoutUser,
+  getAccessToken,
 }

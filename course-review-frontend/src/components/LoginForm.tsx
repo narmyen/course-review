@@ -5,8 +5,10 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthService'
 
-
-function LoginForm() {
+interface LoginFormProps {
+  loginCallback?: () => void;
+}
+function LoginForm(props: LoginFormProps) {
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
@@ -20,6 +22,9 @@ function LoginForm() {
             setLoginErrorMessage('Login error: wrong username or password');
           } else {
             setLoginErrorMessage('');
+            if (props.loginCallback) {
+              props.loginCallback()
+            }
             navigate("/"); // Use navigate instead of history.push
           }
           actions.setSubmitting(false);

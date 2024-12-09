@@ -1,4 +1,6 @@
-import React from 'react';
+'use client'
+
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,12 +8,30 @@ import {
   Link
 } from 'react-router-dom';
 
+// import service
+import AuthService from './services/AuthService';
+
+// import components
 import LoginForm from './components/LoginForm';
 import About from './components/About';
 import CourseReview from './components/CourseReview';
-import Oioi from './components/Oioi'
+
 
 const App = () => {
+  const [userName, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    setUsername(AuthService.getUserName());
+  }, [])
+
+  const handleUserLogin = () => {
+    setUsername(AuthService.getUserName());
+  }
+
+  const logout = () => {
+    AuthService.logoutUser();
+    setUsername(null);
+  }
 
   return (
     <Router>
@@ -26,17 +46,20 @@ const App = () => {
           <li>
             <Link to='/login'>Login</Link>
           </li>
-          <li>
-            <Link to='/oioi'>oioi</Link>
-          </li>
+          {userName && (
+            <li>
+              user: {userName}
+              <button onClick={logout}>Log out</button>
+            </li>
+
+          )}
         </ul>
       </div>
       <div className='container p-4 mt-40 shadow-md mx-auto'>
         <Routes>
           <Route path='/' element={<CourseReview />} />
-          <Route path='/login' element={<LoginForm />} />
+          <Route path='/login' element={<LoginForm loginCallback={handleUserLogin} />} />
           <Route path='/about' element={<About />} />
-          <Route path='/oioi' element={<Oioi />} />
         </Routes>
       </div>
     </Router>

@@ -3,6 +3,7 @@ import { Course } from '../interfaces';
 import CoursesService from '../services/CoursesService';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { error } from 'console';
+import AuthService from '../services/AuthService';
 
 interface NewCourseFormProps {
   onNewCourseCreated?: (newCourse: Course) => void;
@@ -39,7 +40,7 @@ function NewCourseForm(props: NewCourseFormProps) {
             number: values.newCourseNumber,
             title: values.newCourseTitle,
           };
-          CoursesService.createCourse(newCourse)
+          CoursesService.createCourse(newCourse, AuthService.getAccessToken())
             .then(savedNewCourse => {
               if (savedNewCourse !== null) {
                 if (props.onNewCourseCreated !== undefined) {
